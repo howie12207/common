@@ -6,7 +6,7 @@
                 v-for="link in menu"
                 :key="link.route"
                 :class="['nav_link', { active: $route.path === link.route }]"
-                :href="`/#${link.route}`"
+                :href="`${preLink}${link.route}`"
                 >{{ link.label }}</a
             >
         </nav>
@@ -17,16 +17,17 @@
 <script>
 export default {
     name: "App",
-    created() {
-        console.log(this.$route.path);
-    },
     data() {
         return {
+            preLink: "",
             menu: [
                 { label: "BaseInput", route: "/baseInput" },
                 { label: "Icon", route: "/icon" }
             ]
         };
+    },
+    mounted() {
+        this.preLink = `${process.env.BASE_URL}#`;
     }
 };
 </script>
