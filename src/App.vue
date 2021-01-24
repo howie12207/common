@@ -1,28 +1,69 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div id="app">
+        <nav class="left_bar">
+            Howie
+            <a
+                v-for="link in menu"
+                :key="link.route"
+                :class="['nav_link', { active: $route.path === link.route }]"
+                :href="`/#${link.route}`"
+                >{{ link.label }}</a
+            >
+        </nav>
+        <router-view class="main"></router-view>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+    name: "App",
+    created() {
+        console.log(this.$route.path);
+    },
+    data() {
+        return {
+            menu: [
+                { label: "BaseInput", route: "/baseInput" },
+                { label: "Icon", route: "/icon" }
+            ]
+        };
+    }
+};
 </script>
 
 <style lang="scss">
+* {
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+    display: flex;
+    .left_bar {
+        position: fixed;
+        overflow-y: auto;
+        height: 100vh;
+        width: 160px;
+        background-color: #e5e7eb;
+        .nav_link {
+            display: block;
+            color: #d97706;
+            transition: 0.4s;
+            text-align: center;
+            padding: 16px;
+            &:hover {
+                color: #78350f;
+            }
+            &.active {
+                border-top-left-radius: 40px;
+                border-bottom-left-radius: 40px;
+                background-color: #f3f4f6;
+            }
+        }
+    }
+    .main {
+        padding: 16px 16px 16px 176px;
+    }
 }
 </style>
