@@ -22,7 +22,11 @@ export default {
             preLink: "",
             menu: [
                 { label: "BaseInput", route: "/baseInput" },
-                { label: "Icon", route: "/icon" }
+                { label: "Icon", route: "/icon" },
+                { label: "Popup", route: "/popup" },
+                { label: "Marquee", route: "/marquee" },
+                { label: "Message", route: "/message" },
+                { label: "Switch", route: "/switch" }
             ]
         };
     },
@@ -36,8 +40,8 @@ export default {
 * {
     border: 0;
     margin: 0;
-    box-sizing: border-box;
     text-decoration: none;
+    box-sizing: border-box;
 }
 #app {
     display: flex;
@@ -65,6 +69,15 @@ export default {
     }
     .main {
         padding: 16px 16px 16px 176px;
+        .title {
+            color: #92400e;
+            line-height: 20px;
+        }
+        .sub_title {
+            color: #fecaca;
+            font-size: 14px;
+            line-height: 20px;
+        }
     }
 }
 </style>
