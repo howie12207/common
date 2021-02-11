@@ -1,7 +1,17 @@
 <template>
-    <div :class="['base_input', { multi_line: multiLine }]">
+    <div
+        :class="[
+            'base_input',
+            { multi_line: multiLine },
+            {
+                error: blurInput && (!isValid || errorMessage)
+            }
+        ]"
+    >
         <div class="left">
-            <div class="input_label top">{{ label }}</div>
+            <label style="display: block" class="input_label top">{{
+                label
+            }}</label>
             <div class="left_bottom bottom"></div>
         </div>
         <div class="right">
@@ -12,13 +22,7 @@
                     :placeholder="placeholder"
                     :disabled="disabled"
                     :upper-case="upperCase"
-                    :class="[
-                        'input_content',
-                        {
-                            error: blurInput && (!isValid || errorMessage)
-                        },
-                        { clear_btn: clearBtn }
-                    ]"
+                    :class="['input_content', { clear_btn: clearBtn }]"
                     @keyup="onKeyup(value)"
                     @blur="onBlur(value)"
                     @keydown="onKeydown"
@@ -59,7 +63,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-    name: "BaseInput",
+    name: "BaseInput2",
     props: {
         label: {
             type: String,
@@ -250,30 +254,42 @@ export default Vue.extend({
     }
 
     .input_label {
+        position: relative;
         min-width: 80px;
+        text-align: right;
+        border-left: 1px solid var(--borderColor);
+        border-top: 1px solid var(--borderColor);
+        border-bottom: 1px solid var(--borderColor);
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
     }
 
     .input_block {
         position: relative;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-        border-radius: 4px;
+        border-right: 1px solid var(--borderColor);
+        border-top: 1px solid var(--borderColor);
+        border-bottom: 1px solid var(--borderColor);
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+
+        &::after {
+            content: "";
+            margin: auto 0 auto 8px;
+            position: absolute;
+            top: 20%;
+            left: 0;
+            width: 2px;
+            height: 60%;
+            background-color: var(--borderColor);
+        }
 
         .input_content {
-            width: 100%;
             height: 100%;
             padding: 0 32px 0 16px;
-            border: 1px solid var(--borderColor);
             border-radius: 4px;
             transition: 0.3s;
             outline: none;
-
-            &:focus {
-                border: 1px solid var(--focusColor);
-            }
-
-            &.error {
-                border: 1px solid var(--errorColor);
-            }
+            border: none;
         }
 
         .x_icon {
@@ -313,10 +329,24 @@ export default Vue.extend({
         }
     }
 
+    &.error {
+        .input_label {
+            border-left: 1px solid var(--errorColor);
+            border-top: 1px solid var(--errorColor);
+            border-bottom: 1px solid var(--errorColor);
+        }
+
+        .input_block {
+            border-right: 1px solid var(--errorColor);
+            border-top: 1px solid var(--errorColor);
+            border-bottom: 1px solid var(--errorColor);
+        }
+    }
+
     .error_message {
         height: 12px;
         font-size: 12px;
-        margin: 8px 0;
+        margin: 8px 0 8px 16px;
         color: var(--errorColor);
     }
 

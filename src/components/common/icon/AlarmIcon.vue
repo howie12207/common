@@ -1,5 +1,5 @@
 <template>
-    <div :class="['alarm_icon', { shake: shake }]"></div>
+    <div :style="style" :class="['alarm_icon', { shake: shake }]"></div>
 </template>
 
 <script>
@@ -21,12 +21,13 @@ export default Vue.extend({
             default: true
         }
     },
-    mounted() {
-        document.documentElement.style.setProperty(
-            "--alarmColor",
-            this.mainColor
-        );
-        document.documentElement.style.setProperty("--alarmSize", this.size);
+    computed: {
+        style() {
+            return {
+                "--alarmColor": this.mainColor,
+                "--alarmSize": this.size
+            };
+        }
     }
 });
 </script>

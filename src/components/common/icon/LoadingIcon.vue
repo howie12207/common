@@ -1,5 +1,5 @@
 <template>
-    <div class="loading_icon">
+    <div :style="style" class="loading_icon">
         <div class="loading_circle1 loading_circle"></div>
         <div class="loading_circle2 loading_circle"></div>
         <div class="loading_circle3 loading_circle"></div>
@@ -30,12 +30,13 @@ export default Vue.extend({
             default: "40px"
         }
     },
-    mounted() {
-        document.documentElement.style.setProperty(
-            "--loadingColor",
-            this.mainColor
-        );
-        document.documentElement.style.setProperty("--loadingSize", this.size);
+    computed: {
+        style() {
+            return {
+                "--loadingColor": this.mainColor,
+                "--loadingSize": this.size
+            };
+        }
     }
 });
 </script>

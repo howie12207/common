@@ -1,5 +1,5 @@
 <template>
-    <div :class="['arrow_icon', direction]"></div>
+    <div :style="style" :class="['arrow_icon', direction]"></div>
 </template>
 
 <script>
@@ -21,12 +21,13 @@ export default Vue.extend({
             default: "left"
         }
     },
-    mounted() {
-        document.documentElement.style.setProperty(
-            "--arrowColor",
-            this.mainColor
-        );
-        document.documentElement.style.setProperty("--arrowSize", this.size);
+    computed: {
+        style() {
+            return {
+                "--arrowColor": this.mainColor,
+                "--arrowSize": this.size
+            };
+        }
     }
 });
 </script>

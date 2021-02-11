@@ -1,5 +1,5 @@
 <template>
-    <div class="check_icon"></div>
+    <div :style="style" class="check_icon"></div>
 </template>
 
 <script>
@@ -17,12 +17,13 @@ export default Vue.extend({
             default: 1
         }
     },
-    mounted() {
-        document.documentElement.style.setProperty(
-            "--checkColor",
-            this.mainColor
-        );
-        document.documentElement.style.setProperty("--checkSize", this.size);
+    computed: {
+        style() {
+            return {
+                "--checkColor": this.mainColor,
+                "--checkSize": this.size
+            };
+        }
     }
 });
 </script>

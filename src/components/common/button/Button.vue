@@ -1,5 +1,7 @@
 <template>
-    <div :class="['btn', { disabled }]">{{ text }}</div>
+    <div :style="style" :class="['btn', { disabled }]">
+        {{ text }}
+    </div>
 </template>
 
 <script>
@@ -25,15 +27,13 @@ export default Vue.extend({
             default: "#d1d5db"
         }
     },
-    mounted() {
-        document.documentElement.style.setProperty(
-            "--mainColor",
-            this.mainColor
-        );
-        document.documentElement.style.setProperty(
-            "--disabledColor",
-            this.disabledColor
-        );
+    computed: {
+        style() {
+            return {
+                "--mainColor": this.mainColor,
+                "--disabledColor": this.disabledColor
+            };
+        }
     }
 });
 </script>

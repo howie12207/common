@@ -3,8 +3,10 @@
 </template>
 
 <script>
+import Sample from "@/components/common/sample/Sample";
 export default {
-    name: "SamplePage"
+    name: "SamplePage",
+    component: { Sample }
 };
 </script>
 

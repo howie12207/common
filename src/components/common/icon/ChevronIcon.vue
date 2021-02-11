@@ -1,5 +1,5 @@
 <template>
-    <div :class="['chevron_icon', direction]"></div>
+    <div :style="style" :class="['chevron_icon', direction]"></div>
 </template>
 
 <script>
@@ -21,12 +21,13 @@ export default Vue.extend({
             default: "left"
         }
     },
-    mounted() {
-        document.documentElement.style.setProperty(
-            "--chevronColor",
-            this.mainColor
-        );
-        document.documentElement.style.setProperty("--chevronSize", this.size);
+    computed: {
+        style() {
+            return {
+                "--chevronColor": this.mainColor,
+                "--chevronSize": this.size
+            };
+        }
     }
 });
 </script>

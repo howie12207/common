@@ -78,16 +78,34 @@
             :not-required="true"
             :clear-btn="false"
         />
+        <div class="title">另一種樣式</div>
+        <BaseInput2
+            label="帳號/信箱"
+            placeholder="請輸入帳號或信箱"
+            v-model="account2.value"
+            :is-valid.sync="account2.isValid"
+            :rules="account2.rules"
+        />
+        <BaseInput2
+            label="密碼"
+            placeholder="請輸入密碼"
+            type="password"
+            v-model="password2.value"
+            :is-valid.sync="password2.isValid"
+            :rules="password2.rules"
+        />
     </div>
 </template>
 
 <script>
 import BaseInput from "@/components/common/baseInput/BaseInput.vue";
+import BaseInput2 from "@/components/common/baseInput/BaseInput2.vue";
 import Button from "@/components/common/button/Button.vue";
 export default {
     name: "BaseInputPage",
     components: {
         BaseInput,
+        BaseInput2,
         Button
     },
     data() {
@@ -142,6 +160,24 @@ export default {
             fb: {
                 value: "",
                 isValid: false
+            },
+            account2: {
+                value: "",
+                isValid: false,
+                rules: {
+                    min: 6,
+                    max: 20,
+                    limit: "enAndNumber"
+                }
+            },
+            password2: {
+                value: "",
+                isValid: false,
+                rules: {
+                    min: 6,
+                    max: 20,
+                    limit: "enAndNumber"
+                }
             }
         };
     },
@@ -169,10 +205,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.title {
-    color: #92400e;
-    margin: 8px 0;
-}
 .btn {
     margin: 0 0 20px 230px;
 }

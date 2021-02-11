@@ -1,5 +1,5 @@
 <template>
-    <div class="add_icon"></div>
+    <div :style="style" class="add_icon"></div>
 </template>
 
 <script>
@@ -17,12 +17,13 @@ export default Vue.extend({
             default: 1
         }
     },
-    mounted() {
-        document.documentElement.style.setProperty(
-            "--addColor",
-            this.mainColor
-        );
-        document.documentElement.style.setProperty("--addSize", this.size);
+    computed: {
+        style() {
+            return {
+                "--addColor": this.mainColor,
+                "--addSize": this.size
+            };
+        }
     }
 });
 </script>

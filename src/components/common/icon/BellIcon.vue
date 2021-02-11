@@ -1,5 +1,5 @@
 <template>
-    <div :class="['bell_icon', { shake: shake }]"></div>
+    <div :style="style" :class="['bell_icon', { shake: shake }]"></div>
 </template>
 
 <script>
@@ -21,12 +21,13 @@ export default Vue.extend({
             default: true
         }
     },
-    mounted() {
-        document.documentElement.style.setProperty(
-            "--bellColor",
-            this.mainColor
-        );
-        document.documentElement.style.setProperty("--bellSize", this.size);
+    computed: {
+        style() {
+            return {
+                "--bellColor": this.mainColor,
+                "--bellSize": this.size
+            };
+        }
     }
 });
 </script>

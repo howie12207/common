@@ -1,5 +1,5 @@
 <template>
-    <div class="x_icon"></div>
+    <div :style="style" class="x_icon"></div>
 </template>
 
 <script>
@@ -17,9 +17,13 @@ export default Vue.extend({
             default: 1
         }
     },
-    mounted() {
-        document.documentElement.style.setProperty("--xColor", this.mainColor);
-        document.documentElement.style.setProperty("--xSize", this.size);
+    computed: {
+        style() {
+            return {
+                "--xColor": this.mainColor,
+                "--xSize": this.size
+            };
+        }
     }
 });
 </script>
