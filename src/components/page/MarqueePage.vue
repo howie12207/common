@@ -7,6 +7,7 @@
             <div class="sub_title">@param stop 需要hover暫停則代入此參數</div>
             <Marquee
                 :content="content"
+                :step="step"
                 :duration="duration"
                 :stop="stopProps"
             />
@@ -46,6 +47,32 @@
             </div>
 
             <div class="item">
+                <label class="controller_label">一秒移動距離 step</label>
+                <input
+                    :disabled="!stepProps"
+                    class="input"
+                    type="number"
+                    v-model.lazy.number="step"
+                    @keydown="keydownNumber"
+                />
+                <input
+                    type="radio"
+                    class="radio"
+                    v-model="stepProps"
+                    :value="true"
+                />
+                <label>帶入參數</label>
+                <input
+                    type="radio"
+                    class="radio"
+                    v-model="stepProps"
+                    :value="false"
+                    @change="changeProps('step')"
+                />
+                <label>不帶入 (100)</label>
+            </div>
+
+            <div class="item">
                 <label class="controller_label">一輪時間 duration</label>
                 <input
                     :disabled="!durationProps"
@@ -68,7 +95,7 @@
                     :value="false"
                     @change="changeProps('duration')"
                 />
-                <label>不帶入 (30)</label>
+                <label>不帶入</label>
             </div>
 
             <div class="item">
@@ -104,10 +131,12 @@ export default {
                 "2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut perferendis incidunt porro aperiam atque, tempora quod fugiat repellat magnam esse architecto numquam omnis harum cum inventore non voluptatum asperiores animi?",
                 "3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut perferendis incidunt porro aperiam atque, tempora quod fugiat repellat magnam esse architecto numquam omnis harum cum inventore non voluptatum asperiores animi?"
             ],
-            duration: 30,
+            step: 50,
+            duration: 0,
 
             // 控制項
-            durationProps: true,
+            stepProps: true,
+            durationProps: false,
             stopProps: true
         };
     },
@@ -117,6 +146,7 @@ export default {
             return `
 <Marquee
     :content="[${this.content}]"
+    ${this.stepProps ? `:step="${this.step}"` : ""}
     ${this.durationProps ? `:duration="${this.duration}"` : ""}
     ${this.stopProps ? "stop" : ""} 
 />`;

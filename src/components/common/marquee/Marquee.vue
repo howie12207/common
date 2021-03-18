@@ -1,6 +1,6 @@
 <template>
     <div :style="style" :class="['marquee', { stop }]">
-        <div class="content">
+        <div ref="marqueeContent" class="content">
             <span v-for="(item, i) in content" class="item" :key="i">{{
                 item
             }}</span>
@@ -17,21 +17,38 @@ export default Vue.extend({
             type: Array,
             default: () => []
         },
+        step: {
+            type: Number,
+            default: 100
+        },
         duration: {
             type: Number,
-            default: 30
+            default: 0
         },
         stop: {
             type: Boolean,
             default: false
         }
     },
+    data() {
+        return {
+            width: ""
+        };
+    },
     computed: {
         style() {
+            const time =
+                this.duration > 0 ? this.duration : this.width / this.step;
             return `
-                --scrollDuration: ${this.duration}s
+                --scrollDuration: ${time}s
             `;
         }
+    },
+    mounted() {
+        this.width =
+            this.$refs.marqueeContent.clientWidth > 1000
+                ? this.$refs.marqueeContent.clientWidth
+                : 1000;
     }
 });
 </script>
