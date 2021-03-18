@@ -8,6 +8,9 @@ import MarqueePage from "../components/page/MarqueePage.vue";
 import MessagePage from "../components/page/MessagePage.vue";
 import SwitchPage from "../components/page/SwitchPage.vue";
 import PaginationPage from "../components/page/PaginationPage.vue";
+import NumberAnimationPage from "../components/page/NumberAnimationPage.vue";
+import ImageUploadPage from "../components/page/ImageUploadPage.vue";
+import ImageUploadPage2 from "../components/page/ImageUploadPage2.vue";
 
 Vue.use(VueRouter);
 
@@ -43,6 +46,18 @@ const routes = [
     {
         path: "/pagination",
         component: PaginationPage
+    },
+    {
+        path: "/numberAnimation",
+        component: NumberAnimationPage
+    },
+    {
+        path: "/imageUpload",
+        component: ImageUploadPage
+    },
+    {
+        path: "/imageUpload2",
+        component: ImageUploadPage2
     },
     {
         path: "*",

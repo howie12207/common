@@ -6,7 +6,7 @@
 import Sample from "@/components/common/sample/Sample";
 export default {
     name: "SamplePage",
-    component: { Sample }
+    components: { Sample }
 };
 </script>
 

@@ -13,8 +13,8 @@ export default Vue.extend({
             default: "currentColor"
         },
         size: {
-            type: Number,
-            default: 1
+            type: String,
+            default: "24px"
         }
     },
     computed: {
@@ -30,30 +30,30 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .x_icon {
-    box-sizing: border-box;
-    position: relative;
     display: inline-block;
-    transform: scale(var(--xSize));
-    width: 22px;
-    height: 22px;
+    position: relative;
+    box-sizing: border-box;
+    width: var(--xSize);
+    height: var(--xSize);
     border: 2px solid var(--xColor);
     border-radius: 50%;
-}
-.x_icon::after,
-.x_icon::before {
-    content: "";
-    display: block;
-    box-sizing: border-box;
-    position: absolute;
-    width: 12px;
-    height: 2px;
-    background: var(--xColor);
-    transform: rotate(45deg);
-    border-radius: 5px;
-    top: 8px;
-    left: 3px;
-}
-.x_icon::after {
-    transform: rotate(-45deg);
+
+    &:after,
+    &:before {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        width: calc(var(--xSize) - 10px);
+        height: 2px;
+        background: var(--xColor);
+        transform: rotate(45deg);
+        border-radius: 5px;
+        top: calc(var(--xSize) / 2 - 3px);
+        left: 3px;
+    }
+
+    &:after {
+        transform: rotate(-45deg);
+    }
 }
 </style>

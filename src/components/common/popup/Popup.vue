@@ -13,7 +13,7 @@ export default Vue.extend({
     props: {
         width: {
             type: String,
-            default: "580px"
+            default: "600px"
         },
         closeBtn: {
             type: Boolean,

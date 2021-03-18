@@ -109,6 +109,10 @@ export default Vue.extend({
         background: {
             type: Boolean,
             default: false
+        },
+        query: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -210,6 +214,7 @@ export default Vue.extend({
     methods: {
         // 一頁顯示數量變更
         changeSize(size) {
+            this.setSizeQuery(size);
             this.$emit("changeSize", size);
         },
 
@@ -250,6 +255,7 @@ export default Vue.extend({
                 }
             }
             if (newPage !== currentPage) {
+                this.setPageQuery(newPage);
                 this.$emit("changePage", newPage);
             }
         },
@@ -257,9 +263,30 @@ export default Vue.extend({
         // 點上下頁
         prevNextHandler(direction) {
             if (direction > 0 && this.currentPage < this.pageCount) {
+                this.setPageQuery(this.currentPage + 1);
                 this.$emit("changePage", this.currentPage + 1);
             } else if (direction < 0 && this.currentPage !== 1) {
+                this.setPageQuery(this.currentPage - 1);
                 this.$emit("changePage", this.currentPage - 1);
+            }
+        },
+
+        // 設定query page
+        setPageQuery(page) {
+            if (this.query) {
+                const query = { ...this.$route.query, page };
+                this.pageOption.page = page;
+                this.$router.push({ query });
+            }
+        },
+
+        // 設定query size
+        setSizeQuery(size) {
+            if (this.query) {
+                const query = { ...this.$route.query, size };
+                delete query.page;
+                this.pageOption.page = 1;
+                this.$router.push({ query: { size } });
             }
         }
     }

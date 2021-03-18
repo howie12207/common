@@ -153,17 +153,8 @@ export default Vue.extend({
         },
         onKeydown(e) {
             if (this.rules.limit === "number") {
-                if (
-                    e.keyCode === 190 ||
-                    e.keyCode === 189 ||
-                    e.keyCode === 187 ||
-                    e.keyCode === 69 ||
-                    e.keyCode === 107 ||
-                    e.keyCode === 109 ||
-                    e.keyCode === 110
-                ) {
-                    e.preventDefault();
-                }
+                const keycode = [69, 107, 109, 110, 187, 189, 190];
+                if (keycode.includes(e.keyCode)) e.preventDefault();
             }
         },
         validate(value) {
@@ -320,16 +311,10 @@ export default Vue.extend({
         color: var(--errorColor);
     }
 
-    /* Chrome, Safari, Edge, Opera */
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
-    }
-
-    /* Firefox */
-    input[type="number"] {
-        -moz-appearance: textfield;
     }
 }
 </style>

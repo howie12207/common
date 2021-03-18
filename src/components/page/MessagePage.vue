@@ -1,15 +1,26 @@
 <template>
-    <div class="section">
-        <Message />
-    </div>
+    <div>{{ showFuntion }}</div>
 </template>
 
 <script>
-import Message from "@/components/common/message/Message";
+function confirm() {
+    let a = "1";
+    return a;
+}
 export default {
-    name: "MessagePage",
-    components: { Message }
+    data() {
+        return {};
+    },
+    computed: {
+        showFuntion() {
+            let myFunction = confirm.toString();
+            this.confirm = this.confirm.bind(this);
+
+            return myFunction;
+        }
+    },
+    methods: {
+        confirm() {}
+    }
 };
 </script>
-
-<style scoped lang="scss"></style>

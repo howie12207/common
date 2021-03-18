@@ -15,7 +15,7 @@
             <div class="left_bottom bottom"></div>
         </div>
         <div class="right">
-            <div :class="['input_block', 'top']">
+            <div :class="['input_block']">
                 <input
                     v-model="syncValue"
                     :type="type"
@@ -157,17 +157,8 @@ export default Vue.extend({
         },
         onKeydown(e) {
             if (this.rules.limit === "number") {
-                if (
-                    e.keyCode === 190 ||
-                    e.keyCode === 189 ||
-                    e.keyCode === 187 ||
-                    e.keyCode === 69 ||
-                    e.keyCode === 107 ||
-                    e.keyCode === 109 ||
-                    e.keyCode === 110
-                ) {
-                    e.preventDefault();
-                }
+                const keycode = [69, 107, 109, 110, 187, 189, 190];
+                if (keycode.includes(e.keyCode)) e.preventDefault();
             }
         },
         validate(value) {
@@ -250,7 +241,7 @@ export default Vue.extend({
 
     .top {
         height: 40px;
-        line-height: 40px;
+        line-height: 38px;
     }
 
     .input_label {
@@ -265,6 +256,7 @@ export default Vue.extend({
     }
 
     .input_block {
+        height: 40px;
         position: relative;
         border-right: 1px solid var(--borderColor);
         border-top: 1px solid var(--borderColor);

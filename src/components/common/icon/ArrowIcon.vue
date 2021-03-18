@@ -13,8 +13,8 @@ export default Vue.extend({
             default: "currentColor"
         },
         size: {
-            type: Number,
-            default: 1
+            type: String,
+            default: "24px"
         },
         direction: {
             type: String,
@@ -25,7 +25,8 @@ export default Vue.extend({
         style() {
             return {
                 "--arrowColor": this.mainColor,
-                "--arrowSize": this.size
+                "--arrowSize": this.size,
+                "--arrowLineWidth": this.lineWidth
             };
         }
     }
@@ -34,42 +35,49 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .arrow_icon {
-    box-sizing: border-box;
-    position: relative;
     display: inline-block;
-    transform: scale(var(--arrowSize));
-    width: 22px;
-    height: 22px;
-    &::after,
-    &::before {
+    position: relative;
+    box-sizing: border-box;
+    width: var(--arrowSize);
+    height: var(--arrowSize);
+
+    &:after,
+    &:before {
         content: "";
-        display: block;
-        box-sizing: border-box;
         position: absolute;
+        box-sizing: border-box;
         left: 3px;
     }
-    &::after {
-        width: 8px;
-        height: 8px;
-        bottom: 7px;
+
+    &:after {
+        width: calc(var(--arrowSize) / 2);
+        height: calc(var(--arrowSize) / 2);
         border-bottom: 2px solid var(--arrowColor);
         border-left: 2px solid var(--arrowColor);
+        transform-origin: bottom left;
         transform: rotate(45deg);
+        left: 2px;
+        bottom: 50%;
     }
-    &::before {
-        width: 16px;
+
+    &:before {
+        width: calc(var(--arrowSize) - 3px);
         height: 2px;
-        bottom: 10px;
-        background: var(--arrowColor);
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: var(--arrowColor);
     }
-    &.up {
-        transform: scale(var(--arrowSize)) rotate(90deg);
+
+    &.top {
+        transform: rotate(90deg);
     }
+
     &.right {
-        transform: scale(var(--arrowSize)) rotate(180deg);
+        transform: rotate(180deg);
     }
-    &.down {
-        transform: scale(var(--arrowSize)) rotate(270deg);
+
+    &.bottom {
+        transform: rotate(270deg);
     }
 }
 </style>

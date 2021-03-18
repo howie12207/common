@@ -13,19 +13,24 @@ export default Vue.extend({
             default: "currentColor"
         },
         size: {
-            type: Number,
-            default: 1
+            type: String,
+            default: "24px"
         },
         direction: {
             type: String,
             default: "left"
+        },
+        lineWidth: {
+            type: String,
+            default: "2px"
         }
     },
     computed: {
         style() {
             return {
                 "--chevronColor": this.mainColor,
-                "--chevronSize": this.size
+                "--chevronSize": this.size,
+                "--chevronLineWidth": this.lineWidth
             };
         }
     }
@@ -34,38 +39,35 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .chevron_icon {
-    box-sizing: border-box;
-    position: relative;
     display: inline-block;
-    transform: scale(var(--chevronSize));
-    width: 22px;
-    height: 22px;
-    border: 2px solid transparent;
-    border-radius: 50%;
-    &::after {
+    position: relative;
+    width: var(--chevronSize);
+    height: var(--chevronSize);
+    box-sizing: border-box;
+
+    &:after {
         content: "";
-        display: block;
-        box-sizing: border-box;
         position: absolute;
-        width: 10px;
-        height: 10px;
-        border-bottom: 2px solid var(--chevronColor);
-        border-left: 2px solid var(--chevronColor);
-        transform: rotate(45deg);
-        left: 6px;
-        top: 4px;
+        box-sizing: border-box;
+        border: solid var(--chevronColor);
+        border-width: 0 var(--chevronLineWidth) var(--chevronLineWidth) 0;
+        border-bottom-right-radius: 2px;
+        padding: calc(calc(var(--chevronSize) - var(--chevronLineWidth)) / 3);
+        top: 50%;
+        left: 50%;
+        transform: translate(-25%, -50%) rotate(135deg);
     }
-    // 往上
-    &.up {
-        transform: scale(var(--chevronSize)) rotate(90deg);
+
+    &.top:after {
+        transform: translate(-50%, -25%) rotate(-135deg);
     }
-    // 往右
-    &.right {
-        transform: scale(var(--chevronSize)) rotate(180deg);
+
+    &.right:after {
+        transform: translate(-75%, -50%) rotate(-45deg);
     }
-    // 往下
-    &.down {
-        transform: scale(var(--chevronSize)) rotate(270deg);
+
+    &.bottom:after {
+        transform: translate(-50%, -75%) rotate(45deg);
     }
 }
 </style>

@@ -13,8 +13,8 @@ export default Vue.extend({
             default: "currentColor"
         },
         size: {
-            type: Number,
-            default: 1
+            type: String,
+            default: "24px"
         }
     },
     computed: {
@@ -30,32 +30,32 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .add_icon {
-    box-sizing: border-box;
-    position: relative;
     display: inline-block;
-    width: 22px;
-    height: 22px;
-    border: 2px solid var(--addColor);
-    transform: scale(var(--addSize));
-    border-radius: 50%;
-}
-.add_icon::after,
-.add_icon::before {
-    content: "";
-    display: block;
+    position: relative;
     box-sizing: border-box;
-    position: absolute;
-    width: 10px;
-    height: 2px;
-    background: var(--addColor);
-    border-radius: 5px;
-    top: 8px;
-    left: 4px;
-}
-.add_icon::after {
-    width: 2px;
-    height: 10px;
-    top: 4px;
-    left: 8px;
+    width: var(--addSize);
+    height: var(--addSize);
+    border: 2px solid var(--addColor);
+    border-radius: 50%;
+
+    &:after,
+    &:before {
+        content: "";
+        position: absolute;
+        box-sizing: border-box;
+        width: calc(var(--addSize) / 2);
+        height: 2px;
+        background: var(--addColor);
+        border-radius: 5px;
+        top: calc(var(--addSize) / 2 - 3px);
+        left: calc(var(--addSize) / 4 - 2px);
+    }
+
+    &:after {
+        width: 2px;
+        height: calc(var(--addSize) / 2);
+        top: calc(var(--addSize) / 4 - 2px);
+        left: calc(var(--addSize) / 2 - 3px);
+    }
 }
 </style>

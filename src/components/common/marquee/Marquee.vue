@@ -1,6 +1,6 @@
 <template>
     <div :style="style" :class="['marquee', { stop }]">
-        <div class="content" style="display:flex;">
+        <div class="content">
             <span v-for="(item, i) in content" class="item" :key="i">{{
                 item
             }}</span>

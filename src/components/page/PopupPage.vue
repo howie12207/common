@@ -1,19 +1,24 @@
 <template>
     <div class="section">
-        <div class="sub_title">
-            @param width 字串(ex: 500px or 50%)
+        <div class="item">
+            <div class="title">蓋板彈窗 Popup</div>
+            <div class="sub_title">
+                @param width 字串(ex: 500px or 50%)
+            </div>
+            <div class="sub_title">
+                @param closeBtn 布林 false為關閉X按鈕 width帶字串參數 可改變大小
+            </div>
+            <div class="sub_title">
+                @event close 為按下關閉鈕傳出的事件
+            </div>
+            <Button text="打開彈窗" @click.native="popupOpen = 'sample'" />
         </div>
-        <div class="sub_title">
-            @param closeBtn 布林 false為關閉X按鈕 width帶字串參數 可改變大小
-        </div>
-        <div class="sub_title">
-            @event close 為按下關閉鈕傳出的事件
-        </div>
-        <Button text="打開彈窗" @click.native="popupOpen = 'sample'" />
+
         <transition name="fade">
             <Popup
                 v-if="popupOpen === 'sample'"
-                width="300px"
+                :width="width"
+                :close-btn="!closeBtnProps"
                 @close="popupOpen = ''"
             >
                 <template #content>
@@ -34,6 +39,54 @@
                 </template>
             </Popup>
         </transition>
+
+        <div class="controller">
+            <div class="controller_title">控制項</div>
+            <pre class="code">{{ code }}</pre>
+
+            <div class="item">
+                <label class="controller_label">寬度 width</label>
+                <input
+                    :disabled="!widthProps"
+                    class="input"
+                    type="text"
+                    v-model.lazy="width"
+                />
+                <input
+                    type="radio"
+                    class="radio"
+                    v-model="widthProps"
+                    :value="true"
+                />
+                <label>帶入參數</label>
+                <input
+                    type="radio"
+                    class="radio"
+                    v-model="widthProps"
+                    :value="false"
+                    @change="changeProps('width')"
+                />
+                <label>不帶入 ("560px")</label>
+            </div>
+
+            <div class="item">
+                <label class="controller_label">關閉按鈕 closeBtn</label>
+                <input
+                    type="radio"
+                    class="radio"
+                    v-model="closeBtnProps"
+                    :value="true"
+                />
+                <label>帶入參數 (並給予false)</label>
+                <input
+                    type="radio"
+                    class="radio"
+                    v-model="closeBtnProps"
+                    :value="false"
+                />
+                <label>不帶入</label>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -43,10 +96,32 @@ import Popup from "@/components/common/popup/Popup";
 export default {
     name: "PopupPage",
     components: { Button, Popup },
+    computed: {
+        code() {
+            return `
+<Popup
+    v-if="popupOpen === 'sample'"
+    ${this.widthProps ? `:width="${this.width}"` : ""}
+    ${this.closeBtnProps ? `:close-btn="false"` : ""}
+    @close="popupOpen = ''"
+/>`;
+        }
+    },
     data() {
         return {
-            popupOpen: ""
+            popupOpen: "",
+            width: "300px",
+
+            // 控制項
+            widthProps: true,
+            closeBtnProps: false
         };
+    },
+    methods: {
+        // 控制項
+        changeProps(target) {
+            this[target] = undefined;
+        }
     }
 };
 </script>
